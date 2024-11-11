@@ -594,6 +594,10 @@ type Message struct {
 	//
 	// optional
 	SuccessfulPayment *SuccessfulPayment `json:"successful_payment,omitempty"`
+	// RefundedPayment is a service message about a refunded payment, information about the payment.
+	//
+	// optional
+	RefundedPayment *RefundedPayment `json:"refunded_payment,omitempty"`
 	// ConnectedWebsite is the domain name of the website on which the user has
 	// logged in;
 	//
@@ -3286,6 +3290,28 @@ type SuccessfulPayment struct {
 	// TelegramPaymentChargeID telegram payment identifier
 	TelegramPaymentChargeID string `json:"telegram_payment_charge_id"`
 	// ProviderPaymentChargeID provider payment identifier
+	ProviderPaymentChargeID string `json:"provider_payment_charge_id"`
+}
+
+// RefundedPayment contains basic information about a refunded payment.
+type RefundedPayment struct {
+	// Currency three-letter ISO 4217 currency code
+	// (see https://core.telegram.org/bots/payments#supported-currencies)
+	Currency string `json:"currency"`
+	// TotalAmount total price in the smallest units of the currency (integer, not float/double).
+	// For example, for a price of US$ 1.45 pass amount = 145.
+	// See the exp parameter in currencies.json,
+	// (https://core.telegram.org/bots/payments/currencies.json)
+	// it shows the number of digits past the decimal point
+	// for each currency (2 for the majority of currencies).
+	TotalAmount int `json:"total_amount"`
+	// InvoicePayload bot specified invoice payload
+	InvoicePayload string `json:"invoice_payload"`
+	// TelegramPaymentChargeID telegram payment identifier
+	TelegramPaymentChargeID string `json:"telegram_payment_charge_id"`
+	// ProviderPaymentChargeID provider payment identifier
+	//
+	// optional
 	ProviderPaymentChargeID string `json:"provider_payment_charge_id"`
 }
 
